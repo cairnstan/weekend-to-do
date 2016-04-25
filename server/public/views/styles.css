@@ -1,3 +1,22 @@
-ul {
+body {
+  background-color: #460023;
+}
+li {
+  font-size: 30px;
   list-style-type: none;
+}
+h1, h2 {
+  color: white;
+  font-weight: bold;
+}
+.btn {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  margin: 5px;
+}
+.well {
+  background-color: #9FC462;
+  display: inline-block;
+  margin: 10px;
 }

@@ -69,14 +69,14 @@ router.put('/', function(request, response){
   console.log(request.body);
   pg.connect(connectionString, function(err, client, done){
     if(err) {
-      console.log(err);
+      console.log('this is the router.put', err);
       response.sendStatus(500);
     }else {
-      var query = client.query('UPDATE toDo SET completed = true WHERE toDoItem = request.body.toDoItem');
+      var query = client.query("UPDATE toDo SET completed = true WHERE (toDoItem = " + request.body.toDoItem + ");");
       var results = [];
 
       query.on('error', function(error){
-        console.log(error);
+        console.log('This is the update', error);
         response.sendStatus(500);
       });
 

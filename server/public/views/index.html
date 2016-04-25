@@ -4,7 +4,7 @@
     <meta charset="utf-8">
      <!-- Libraries -->
     <script src="vendor/angular/angular.min.js"></script>
-    <!-- link bootstrap -->
+    <link rel="stylesheet" href="vendor/bootstrap.min.css" />
 
     <!-- Development -->
     <script src="scripts/client.min.js"></script>
@@ -14,26 +14,29 @@
   </head>
   <body>
   <div ng-controller="MainController">
+    <div class="container">
+
+
     <h1>TO DO LIST</h1>
     <input type="text" ng-model="toDo" ng-value="toDo"/>
-    <button ng-click="runClick()">ADD ITEM</button>
-    <br/>
+    <button class="btn" ng-click="runClick()">ADD ITEM</button>
+
     <div class="emptyInput" ng-show="showError">
       You need to enter text to add task.
     </div>
     <br/>
 
-    Tasks:
+    <h2>Tasks:</h2>
 
-      <div ng-repeat="item in toDoList" >
+      <div class="well" ng-repeat="item in toDoList" >
         <li>
         {{item.todoitem}}
-        <button ng-click="completedItem()">Completed Task</button>
-        <button ng-click="removeItem()">Remove Item</button>
+        <button class="btn" ng-click="completedItem()">Completed Task</button>
+        <button class="btn" ng-click="removeItem()">Remove Item</button>
         </li>
 
       </div>
-
+    </div>
   </div>
   </body>
 </html>
