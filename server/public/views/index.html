@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+     <!-- Libraries -->
+    <script src="vendor/angular/angular.min.js"></script>
+    <!-- link bootstrap -->
+
+    <!-- Development -->
+    <script src="scripts/client.min.js"></script>
+    <link rel="stylesheet" href="views/styles.css" />
+
+    <title>WEEKEND TO DO</title>
+  </head>
+  <body>
+  <div ng-controller="MainController">
+    <h1>TO DO LIST</h1>
+    <input type="text" ng-model="toDo" ng-value="toDo"/>
+    <button ng-click="runClick()">ADD ITEM</button>
+    <br/>
+    <div class="emptyInput" ng-show="showError">
+      You need to enter text to add task.
+    </div>
+    <br/>
+
+    Tasks:
+
+      <div ng-repeat="item in toDoList" >
+        <li>
+        {{item.todoitem}}
+        <button ng-click="completedItem()">Completed Task</button>
+        <button ng-click="removeItem()">Remove Item</button>
+        </li>
+
+      </div>
+
+  </div>
+  </body>
+</html>
