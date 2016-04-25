@@ -3,6 +3,7 @@ console.log("This is running");
 
 app.controller('MainController', ['$scope', '$http', function($scope, $http){
   $scope.toDo = '';
+  $scope.classElement = [];
   $scope.toDoList = [];
   $scope.item = {};
 
@@ -26,21 +27,35 @@ var fetchList = function() {
       $scope.showError = false;
       // pushes to the array as object
       $scope.toDoList.push({toDoItem: $scope.toDo, completed: false})
-      $http.post('/toDo', {toDoItem: $scope.toDo, completed: false}).then(fetchList());
+      $http.post('/toDo', {toDoItem: $scope.toDo, completed: false}).then(function(){
+        fetchList();
+      });
       // console.log($scope.toDoList);
       $scope.toDo ='';
     }
-    fetchList();
+
+
+  }
+  $scope.changeClass = function(item){
+    if(item.completed){
+    return "strikethrough";
+    }
   }
 
-  $scope.completedItem = function () {
+  $scope.completedItem = function (item) {
     console.log('this is a completed item');
-    $http.put('/toDo', {toDoItem: $scope.toDo, completed: true}).then();
+    $http.put('/toDo', {id: item.id, toDoItem: item.toDo, completed: true}).then(function(){
+    fetchList();
     console.log($scope.toDoList);
+  });
   }
 
-  $scope.removeItem = function() {
+
+  $scope.removeItem = function(item) {
     //coming back as undefined(also tried item.toDoItem and toDoItem)
-    $scope.item.remove();
+    console.log('item deleted');
+    $http.delete('/toDo/' + item.id).then(function(){
+      fetchList();
+    });
   }
 }]);

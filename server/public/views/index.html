@@ -29,10 +29,10 @@
     <h2>Tasks:</h2>
 
       <div class="well" ng-repeat="item in toDoList" >
-        <li>
+        <li ng-class="changeClass(item)">
         {{item.todoitem}}
-        <button class="btn" ng-click="completedItem()">Completed Task</button>
-        <button class="btn" ng-click="removeItem()">Remove Item</button>
+        <button class="btn" ng-click="completedItem(item)">Completed Task</button>
+        <button class="btn" ng-click="removeItem(item)">Remove Item</button>
         </li>
 
       </div>

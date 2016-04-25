@@ -7,7 +7,7 @@ var connection = require('../db/connection');
 var connectionString = connection.connectionString;
 
 router.post('/', function(request, response){
-  console.log(request.body);
+  // console.log(request.body);
   pg.connect(connectionString, function(err, client, done){
     if(err) {
       console.log(err);
@@ -66,13 +66,13 @@ router.get('/', function(request, response){
 });
 
 router.put('/', function(request, response){
-  console.log(request.body);
+  // console.log(request.body);
   pg.connect(connectionString, function(err, client, done){
     if(err) {
       console.log('this is the router.put', err);
       response.sendStatus(500);
     }else {
-      var query = client.query("UPDATE toDo SET completed = true WHERE (toDoItem = " + request.body.toDoItem + ");");
+      var query = client.query('UPDATE toDo SET completed = true WHERE id = $1;',[request.body.id]);
       var results = [];
 
       query.on('error', function(error){
@@ -91,6 +91,34 @@ router.put('/', function(request, response){
     }
   });
 });
+
+router.delete('/:id', function(request, response){
+  pg.connect(connectionString, function(err, client, done){
+    if(err) {
+      console.log('this is the router.delete', err);
+      response.sendStatus(500);
+    }else {
+      console.log(request.body);
+      var query = client.query('DELETE FROM toDo WHERE id = $1;',[request.params.id]);
+      var results = [];
+
+      query.on('error', function(error){
+        console.log('This is the delete update', error);
+        response.sendStatus(500);
+      });
+
+      // query.on('row', function(rowData){
+      //   results.push(rowData);
+      // });
+
+      query.on('end', function(){
+        response.send('DELETED');
+        done();
+      });
+    }
+  });
+});
+
 
 
 module.exports = router;
